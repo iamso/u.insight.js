@@ -1,0 +1,36 @@
+{
+  "name": "u.insight.js",
+  "version": "0.1.0",
+  "description": "check if elements are in viewport",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/iamso/u.insight.js.git"
+  },
+  "authors": [
+    "Steve Ottoz <so@dev.so>"
+  ],
+  "main": "dist/u.insight.min.js",
+  "license": "MIT",
+  "homepage": "https://github.com/iamso/u.insight.js.git",
+  "ignore": [
+    ".bower.json",
+    ".editorconfig",
+    ".git",
+    ".gitattributes",
+    ".gitignore",
+    "demo",
+    "doc",
+    "extensions",
+    "grunt",
+    "Gruntfile.js",
+    "node_modules",
+    "src"
+  ],
+  "keywords": [
+    "u.js",
+    "viewport"
+  ],
+  "dependencies": {
+    "u.js": "~0.20.0"
+  }
+}
