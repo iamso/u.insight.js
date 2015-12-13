@@ -14,6 +14,7 @@ u('selector').insight({
   classLeft:    'insight-left',
   classRight:   'insight-right',
 });
+```
 
 License
 -------
