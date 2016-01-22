@@ -31,6 +31,6 @@
     "viewport"
   ],
   "dependencies": {
-    "u.js": "~0.20.0"
+    "u.js": "0.*"
   }
 }
