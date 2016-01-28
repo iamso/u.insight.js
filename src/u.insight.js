@@ -93,7 +93,10 @@
         options.fn && options.fn.apply(el, [insight, position]);
       }
 
-      u(window).on('DOMContentLoaded load resize scroll', handler.bind(_this));
+      u(window)
+        .off('DOMContentLoaded load resize scroll', handler.bind(_this))
+        .on('DOMContentLoaded load resize scroll', handler.bind(_this))
+        .trigger('scroll');
 
     }
   };
