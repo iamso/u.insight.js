@@ -1,8 +1,8 @@
 /*!
- * u.insight.js - Version 0.1.1
+ * u.insight.js - Version 0.1.2
  * check if elements are in viewport
  * Author: Steve Ottoz <so@dev.so>
- * Build date: 2016-01-22
+ * Build date: 2016-01-28
  * Copyright (c) 2016 Steve Ottoz
  * Released under the MIT license
  */
@@ -100,7 +100,10 @@
         options.fn && options.fn.apply(el, [insight, position]);
       }
 
-      u(window).on('DOMContentLoaded load resize scroll', handler.bind(_this));
+      u(window)
+        .off('DOMContentLoaded load resize scroll', handler.bind(_this))
+        .on('DOMContentLoaded load resize scroll', handler.bind(_this))
+        .trigger('scroll');
 
     }
   };
