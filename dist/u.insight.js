@@ -1,8 +1,8 @@
 /*!
- * u.insight.js - Version 0.1.2
+ * u.insight.js - Version 0.1.3
  * check if elements are in viewport
  * Author: Steve Ottoz <so@dev.so>
- * Build date: 2016-01-28
+ * Build date: 2016-02-01
  * Copyright (c) 2016 Steve Ottoz
  * Released under the MIT license
  */
@@ -36,67 +36,69 @@
       var _el = _this._el;
       var options = _this.options;
 
-      function handler(e) {
+      function handler(e, rect, wWidth, wHeight, insight, position) {
 
-        var rect = el.getBoundingClientRect();
-        var wWidth = window.innerWidth;
-        var wHeight = window.innerHeight;
-        var insight = (
-          (
-            rect.top >= 0 &&
-            rect.left >= 0 &&
-            rect.top < wHeight &&
-            rect.left < wWidth
-          ) ||
-          (
-            rect.bottom > 0 &&
-            rect.right > 0 &&
-            rect.bottom <= wHeight &&
-            rect.right <= wWidth
-          )
-        );
-        var position = {
-          above: rect.top < 0 && rect.bottom <= 0,
-          left: rect.left < 0 && rect.right <= 0,
-          right: rect.left >= wWidth && rect.right > wWidth,
-          below: rect.top >= wHeight && rect.bottom > wHeight,
-        };
+        try {
+          rect = el.getBoundingClientRect();
+          wWidth = window.innerWidth;
+          wHeight = window.innerHeight;
+          insight = (
+            (
+              rect.top >= 0 &&
+              rect.left >= 0 &&
+              rect.top < wHeight &&
+              rect.left < wWidth
+            ) ||
+            (
+              rect.bottom > 0 &&
+              rect.right > 0 &&
+              rect.bottom <= wHeight &&
+              rect.right <= wWidth
+            )
+          );
+          position = {
+            above: rect.top < 0 && rect.bottom <= 0,
+            left: rect.left < 0 && rect.right <= 0,
+            right: rect.left >= wWidth && rect.right > wWidth,
+            below: rect.top >= wHeight && rect.bottom > wHeight,
+          };
 
-        if (insight) {
-          _el.addClass(options.classIn);
-        }
-        // else {
-        //   _el.removeClass(options.classIn);
-        // }
+          if (insight) {
+            _el.addClass(options.classIn);
+          }
+          // else {
+          //   _el.removeClass(options.classIn);
+          // }
 
-        if (position.above) {
-          _el.addClass(options.classAbove);
-        }
-        else {
-          _el.removeClass(options.classAbove);
-        }
+          if (position.above) {
+            _el.addClass(options.classAbove);
+          }
+          else {
+            _el.removeClass(options.classAbove);
+          }
 
-        if (position.below) {
-          _el.addClass(options.classBelow);
-        }
-        else {
-          _el.removeClass(options.classBelow);
-        }
+          if (position.below) {
+            _el.addClass(options.classBelow);
+          }
+          else {
+            _el.removeClass(options.classBelow);
+          }
 
-        if (position.left) {
-          _el.addClass(options.classLeft);
-        }
-        else {
-          _el.removeClass(options.classLeft);
-        }
+          if (position.left) {
+            _el.addClass(options.classLeft);
+          }
+          else {
+            _el.removeClass(options.classLeft);
+          }
 
-        if (position.right) {
-          _el.addClass(options.classRight);
+          if (position.right) {
+            _el.addClass(options.classRight);
+          }
+          else {
+            _el.removeClass(options.classRight);
+          }
         }
-        else {
-          _el.removeClass(options.classRight);
-        }
-
+        catch(e) {}
         options.fn && options.fn.apply(el, [insight, position]);
       }
 

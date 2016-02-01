@@ -2,7 +2,7 @@
   "name": "u.insight.js",
   "repository": "iamso/u.insight.js",
   "description": "check if elements are in viewport",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "keywords": [
     "u.js",
     "viewport"
