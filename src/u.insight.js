@@ -10,6 +10,7 @@
         classBelow:   'insight-below',
         classLeft:    'insight-left',
         classRight:   'insight-right',
+        container:    u(window),
       };
 
   function InSight(element, options) {
@@ -33,8 +34,8 @@
 
         try {
           rect = el.getBoundingClientRect();
-          wWidth = window.innerWidth;
-          wHeight = window.innerHeight;
+          wWidth = options.container.width();
+          wHeight = options.container.height();
           insight = (
             (
               rect.top >= 0 &&
@@ -96,10 +97,12 @@
       }
 
       u(window)
-        .off('DOMContentLoaded load resize scroll', handler.bind(_this))
-        .on('DOMContentLoaded load resize scroll', handler.bind(_this))
+        .off('DOMContentLoaded load resize', handler.bind(_this))
+        .on('DOMContentLoaded load resize', handler.bind(_this));
+      options.container
+        .off('scroll', handler.bind(_this))
+        .on('scroll', handler.bind(_this))
         .trigger('scroll');
-
     }
   };
 
