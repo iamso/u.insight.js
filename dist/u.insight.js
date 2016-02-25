@@ -1,8 +1,8 @@
 /*!
- * u.insight.js - Version 0.2.0
+ * u.insight.js - Version 0.2.1
  * check if elements are in viewport
  * Author: Steve Ottoz <so@dev.so>
- * Build date: 2016-02-12
+ * Build date: 2016-02-25
  * Copyright (c) 2016 Steve Ottoz
  * Released under the MIT license
  */
@@ -123,4 +123,4 @@
     });
   };
 
-})(u, window, document);
+})(ujs, window, document);
