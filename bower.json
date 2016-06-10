@@ -1,6 +1,6 @@
 {
   "name": "u.insight.js",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "check if elements are in viewport",
   "repository": {
     "type": "git",
