@@ -1,5 +1,5 @@
 
-;(function(u, window, document, undefined) {
+;(function($, window, document, undefined) {
   'use strict';
 
   var pluginName = 'insight',
@@ -10,13 +10,13 @@
         classBelow:   'insight-below',
         classLeft:    'insight-left',
         classRight:   'insight-right',
-        container:    u(window),
+        container:    $(window),
       };
 
   function InSight(element, options) {
     this.el = element;
-    this._el = u(this.el);
-    this.options = u.extend({}, defaults, options);
+    this.$el = $(this.el);
+    this.options = $.extend({}, defaults, options);
     this._defaults = defaults;
     this._name = pluginName;
     this.init();
@@ -27,7 +27,7 @@
     init: function() {
       var _this = this;
       var el = _this.el;
-      var _el = _this._el;
+      var $el = _this.$el;
       var options = _this.options;
 
       function handler(e, rect, wWidth, wHeight, insight, position) {
@@ -58,45 +58,42 @@
           };
 
           if (insight) {
-            _el.addClass(options.classIn);
+            $el.addClass(options.classIn);
           }
-          // else {
-          //   _el.removeClass(options.classIn);
-          // }
 
           if (position.above) {
-            _el.addClass(options.classAbove);
+            $el.addClass(options.classAbove);
           }
           else {
-            _el.removeClass(options.classAbove);
+            $el.removeClass(options.classAbove);
           }
 
           if (position.below) {
-            _el.addClass(options.classBelow);
+            $el.addClass(options.classBelow);
           }
           else {
-            _el.removeClass(options.classBelow);
+            $el.removeClass(options.classBelow);
           }
 
           if (position.left) {
-            _el.addClass(options.classLeft);
+            $el.addClass(options.classLeft);
           }
           else {
-            _el.removeClass(options.classLeft);
+            $el.removeClass(options.classLeft);
           }
 
           if (position.right) {
-            _el.addClass(options.classRight);
+            $el.addClass(options.classRight);
           }
           else {
-            _el.removeClass(options.classRight);
+            $el.removeClass(options.classRight);
           }
         }
         catch(e) {}
         options.fn && options.fn.apply(el, [insight, position]);
       }
 
-      u(window)
+      $(window)
         .off('DOMContentLoaded load resize', handler.bind(_this))
         .on('DOMContentLoaded load resize', handler.bind(_this));
       options.container
@@ -108,10 +105,10 @@
 
   // A really lightweight plugin wrapper around the constructor,
   // preventing against multiple instantiations
-  u.fn[pluginName] = function(options) {
+  $.fn[pluginName] = function(options) {
     return this.each(function() {
-      if (!u(this).data(pluginName)) {
-        u(this).data(pluginName, new InSight(this, options));
+      if (!$(this).data(pluginName)) {
+        $(this).data(pluginName, new InSight(this, options));
       }
     });
   };
