@@ -1,8 +1,8 @@
 /*!
- * u.insight.js - Version 0.3.0
+ * u.insight.js - Version 0.4.0
  * check if elements are in viewport
  * Author: Steve Ottoz <so@dev.so>
- * Build date: 2016-06-10
+ * Build date: 2016-06-15
  * Copyright (c) 2016 Steve Ottoz
  * Released under the MIT license
  */
@@ -43,20 +43,10 @@
           rect = el.getBoundingClientRect();
           wWidth = options.container.width();
           wHeight = options.container.height();
-          insight = (
-            (
-              rect.top >= 0 &&
-              rect.left >= 0 &&
-              rect.top < wHeight &&
-              rect.left < wWidth
-            ) ||
-            (
-              rect.bottom > 0 &&
-              rect.right > 0 &&
-              rect.bottom <= wHeight &&
-              rect.right <= wWidth
-            )
-          );
+          insight = rect.top < wHeight &&
+                    rect.bottom > 0 &&
+                    rect.left < wWidth &&
+                    rect.right > 0;
           position = {
             above: rect.top < 0 && rect.bottom <= 0,
             left: rect.left < 0 && rect.right <= 0,
