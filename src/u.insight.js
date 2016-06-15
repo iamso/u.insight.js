@@ -36,20 +36,10 @@
           rect = el.getBoundingClientRect();
           wWidth = options.container.width();
           wHeight = options.container.height();
-          insight = (
-            (
-              rect.top >= 0 &&
-              rect.left >= 0 &&
-              rect.top < wHeight &&
-              rect.left < wWidth
-            ) ||
-            (
-              rect.bottom > 0 &&
-              rect.right > 0 &&
-              rect.bottom <= wHeight &&
-              rect.right <= wWidth
-            )
-          );
+          insight = rect.top < wHeight &&
+                    rect.bottom > 0 &&
+                    rect.left < wWidth &&
+                    rect.right > 0;
           position = {
             above: rect.top < 0 && rect.bottom <= 0,
             left: rect.left < 0 && rect.right <= 0,
