@@ -1,6 +1,6 @@
 {
   "name": "u.insight.js",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "check if elements are in viewport",
   "private": true,
   "repository": {
@@ -17,6 +17,7 @@
   "main": "dist/u.insight.min.js",
   "keywords": [
     "u.js",
+    "jquery",
     "viewport"
   ],
   "license": "MIT",

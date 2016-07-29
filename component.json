@@ -2,15 +2,19 @@
   "name": "u.insight.js",
   "repository": "iamso/u.insight.js",
   "description": "check if elements are in viewport",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "keywords": [
     "u.js",
+    "jquery",
     "viewport"
   ],
   "scripts": [
     "dist/u.insight.js",
     "dist/u.insight.min.js",
-    "dist/u.insight.min.js.map"
+    "dist/u.insight.min.js.map",
+    "dist/jquery.insight.js",
+    "dist/jquery.insight.min.js",
+    "dist/jquery.insight.min.js.map"
   ],
   "license": "MIT"
 }
