@@ -9,11 +9,18 @@ module.exports = {
     preserveComments: false,
     sourceMap: true
   },
-  dist: {
+  ujs: {
     options: {
       banner: '<%= banner %>'
     },
     src: ['dist/u.insight.js'],
     dest: 'dist/u.insight.min.js'
+  },
+  jquery: {
+    options: {
+      banner: '<%= banner %>'
+    },
+    src: ['dist/jquery.insight.js'],
+    dest: 'dist/jquery.insight.min.js'
   }
 };
