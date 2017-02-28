@@ -23,80 +23,89 @@
   InSight.prototype = {
 
     init: function() {
-      var _this = this;
-      var el = _this.el;
-      var $el = _this.$el;
-      var options = _this.options;
-
-      function handler(e, rect, wWidth, wHeight, insight, position) {
-
-        try {
-          rect = el.getBoundingClientRect();
-          wWidth = options.container.width();
-          wHeight = options.container.height();
-          insight = rect.top < wHeight &&
-                    rect.bottom > 0 &&
-                    rect.left < wWidth &&
-                    rect.right > 0;
-          position = {
-            above: rect.top < 0 && rect.bottom <= 0,
-            left: rect.left < 0 && rect.right <= 0,
-            right: rect.left >= wWidth && rect.right > wWidth,
-            below: rect.top >= wHeight && rect.bottom > wHeight,
-          };
-
-          if (insight) {
-            $el.addClass(options.classIn);
-          }
-
-          if (position.above) {
-            $el.addClass(options.classAbove);
-          }
-          else {
-            $el.removeClass(options.classAbove);
-          }
-
-          if (position.below) {
-            $el.addClass(options.classBelow);
-          }
-          else {
-            $el.removeClass(options.classBelow);
-          }
-
-          if (position.left) {
-            $el.addClass(options.classLeft);
-          }
-          else {
-            $el.removeClass(options.classLeft);
-          }
-
-          if (position.right) {
-            $el.addClass(options.classRight);
-          }
-          else {
-            $el.removeClass(options.classRight);
-          }
-        }
-        catch(e) {}
-        options.fn && options.fn.apply(el, [insight, position]);
-      }
-
+      this.handler = this._handler.bind(this);
       $(window)
-        .off('DOMContentLoaded load resize', handler.bind(_this))
-        .on('DOMContentLoaded load resize', handler.bind(_this));
-      options.container
-        .off('scroll', handler.bind(_this))
-        .on('scroll', handler.bind(_this))
+        .off('DOMContentLoaded load resize', this.handler)
+        .on('DOMContentLoaded load resize', this.handler);
+      this.options.container
+        .off('scroll', this.handler)
+        .on('scroll', this.handler)
         .trigger('scroll');
+    },
+    destroy: function() {
+      $(window)
+        .off('DOMContentLoaded load resize', this.handler);
+      this.options.container
+        .off('scroll', this.handler);
+      this.$el.removeData(pluginName);
+    },
+    _handler: function(e, rect, wWidth, wHeight, insight, position) {
+      try {
+        rect = this.el.getBoundingClientRect();
+        wWidth = this.options.container.width();
+        wHeight = this.options.container.height();
+        insight = rect.top < wHeight &&
+                  rect.bottom > 0 &&
+                  rect.left < wWidth &&
+                  rect.right > 0;
+        position = {
+          above: rect.top < 0 && rect.bottom <= 0,
+          left: rect.left < 0 && rect.right <= 0,
+          right: rect.left >= wWidth && rect.right > wWidth,
+          below: rect.top >= wHeight && rect.bottom > wHeight,
+        };
+
+        if (insight) {
+          this.$el.addClass(this.options.classIn);
+        }
+
+        if (position.above) {
+          this.$el.addClass(this.options.classAbove);
+        }
+        else {
+          this.$el.removeClass(this.options.classAbove);
+        }
+
+        if (position.below) {
+          this.$el.addClass(this.options.classBelow);
+        }
+        else {
+          this.$el.removeClass(this.options.classBelow);
+        }
+
+        if (position.left) {
+          this.$el.addClass(this.options.classLeft);
+        }
+        else {
+          this.$el.removeClass(this.options.classLeft);
+        }
+
+        if (position.right) {
+          this.$el.addClass(this.options.classRight);
+        }
+        else {
+          this.$el.removeClass(this.options.classRight);
+        }
+      }
+      catch(e) {}
+      this.options.fn && this.options.fn.apply(this.el, [insight, position]);
     }
   };
 
-  // A really lightweight plugin wrapper around the constructor,
-  // preventing against multiple instantiations
   $.fn[pluginName] = function(options) {
     return this.each(function() {
-      if (!$(this).data(pluginName)) {
-        $(this).data(pluginName, new InSight(this, options));
+
+      var $el = $(this);
+      var inst = $el.data(pluginName);
+
+      if(!inst) {
+        inst = new InSight(this, options);
+        $el.data(pluginName, inst);
       }
+
+      else if (options === 'destroy') {
+        inst.destroy();
+      }
+
     });
   };
