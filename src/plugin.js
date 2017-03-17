@@ -88,7 +88,12 @@
         }
       }
       catch(e) {}
-      this.options.fn && this.options.fn.apply(this.el, [insight, position]);
+      this.options.fn && this.options.fn.apply(this.el, [{
+        target: this.el,
+        insight: insight,
+        position: position,
+        rect: rect,
+      }]);
     }
   };
 
