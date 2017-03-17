@@ -2,6 +2,7 @@
 
   var pluginName = 'insight',
       defaults = {
+        fraction: 0,
         fn: null,
         classIn:      'insight',
         classAbove:   'insight-above',
@@ -24,6 +25,7 @@
 
     init: function() {
       this.handler = this._handler.bind(this);
+      this.options.fraction = Math.max(Math.min(+this.options.fraction, 1), 0);
       $(window)
         .off('DOMContentLoaded load resize', this.handler)
         .on('DOMContentLoaded load resize', this.handler);
@@ -44,16 +46,31 @@
         rect = this.el.getBoundingClientRect();
         wWidth = this.options.container.width();
         wHeight = this.options.container.height();
-        insight = rect.top < wHeight &&
-                  rect.bottom > 0 &&
-                  rect.left < wWidth &&
-                  rect.right > 0;
         position = {
           above: rect.top < 0 && rect.bottom <= 0,
           left: rect.left < 0 && rect.right <= 0,
           right: rect.left >= wWidth && rect.right > wWidth,
           below: rect.top >= wHeight && rect.bottom > wHeight,
         };
+
+        if (this.options.fraction) {
+          var heightFraction = Math.min(rect.height, wHeight) * this.options.fraction;
+          var widthFraction = Math.min(rect.width, wWidth) * this.options.fraction;
+          insight = (
+                      (rect.top <= wHeight - heightFraction && rect.bottom > 0) ||
+                      (rect.top < wHeight && rect.bottom >= heightFraction && rect.bottom <= wHeight)
+                    ) &&
+                    (
+                      (rect.left <= wWidth - widthFraction && rect.right > 0) ||
+                      (rect.left < wWidth && rect.right >= widthFraction && rect.right <= wWidth)
+                    );
+        }
+        else {
+          insight = rect.top < wHeight &&
+                    rect.bottom > 0 &&
+                    rect.left < wWidth &&
+                    rect.right > 0;
+        }
 
         if (insight) {
           this.$el.addClass(this.options.classIn);
