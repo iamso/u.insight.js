@@ -2,14 +2,15 @@
 
   var pluginName = 'insight',
       defaults = {
-        fraction: 0,
-        fn: null,
+        fraction:     0,
+        fn:           null,
         classIn:      'insight',
         classAbove:   'insight-above',
         classBelow:   'insight-below',
         classLeft:    'insight-left',
         classRight:   'insight-right',
         container:    $(window),
+        removeClass:  false,
       };
 
   function InSight(element, options) {
@@ -74,6 +75,9 @@
 
         if (insight) {
           this.$el.addClass(this.options.classIn);
+        }
+        else if (!insight && this.options.removeClass) {
+          this.$el.removeClass(this.options.classIn);
         }
 
         if (position.above) {
