@@ -42,7 +42,7 @@
         .off('scroll', this.handler);
       this.$el.removeData(pluginName);
     },
-    _handler: function(e, rect, wWidth, wHeight, insight, position) {
+    _handler: function(e, rect, wWidth, wHeight, insight, position, data) {
       try {
         rect = this.el.getBoundingClientRect();
         wWidth = this.options.container.width();
@@ -109,12 +109,14 @@
         }
       }
       catch(e) {}
-      this.options.fn && this.options.fn.apply(this.el, [{
+      data = {
         target: this.el,
         insight: insight,
         position: position,
         rect: rect,
-      }]);
+      };
+      this.options.fn && this.options.fn.apply(this.el, [data]);
+      return data;
     }
   };
 
