@@ -1,8 +1,8 @@
 /*!
- * u.insight.js - Version 0.7.0
+ * u.insight.js - Version 0.8.0
  * check if elements are in viewport
  * Author: Steve Ottoz <so@dev.so>
- * Build date: 2017-03-17
+ * Build date: 2017-04-12
  * Copyright (c) 2017 Steve Ottoz
  * Released under the MIT license
  */
@@ -65,7 +65,7 @@
         .off('scroll', this.handler);
       this.$el.removeData(pluginName);
     },
-    _handler: function(e, rect, wWidth, wHeight, insight, position) {
+    _handler: function(e, rect, wWidth, wHeight, insight, position, data) {
       try {
         rect = this.el.getBoundingClientRect();
         wWidth = this.options.container.width();
@@ -132,12 +132,14 @@
         }
       }
       catch(e) {}
-      this.options.fn && this.options.fn.apply(this.el, [{
+      data = {
         target: this.el,
         insight: insight,
         position: position,
         rect: rect,
-      }]);
+      };
+      this.options.fn && this.options.fn.apply(this.el, [data]);
+      return data;
     }
   };
 
